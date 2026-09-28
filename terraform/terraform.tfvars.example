@@ -1,0 +1,40 @@
+# Only needed if you are driving Terraform by hand instead of using ./lab.sh.
+# lab.sh passes every one of these explicitly and generates terraform/backend.tf,
+# so for the normal flow you do not need this file at all.
+#
+# Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored, and
+# lab.sh warns if it exists, because it is auto-loaded and can surprise you.
+
+# Required, no defaults --------------------------------------------------------
+
+# 6-12 lowercase alphanumerics. lab.sh uses the first 8 hex of sha256(api key).
+instance_id = "manual01"
+
+dd_api_key = "REPLACE_WITH_YOUR_DATADOG_API_KEY"
+
+# Only these CIDRs may reach the ALB. Open ingress (/0) is rejected by a
+# variable validation. Get yours with: curl -s https://checkip.amazonaws.com
+allowed_ingress_cidrs = ["203.0.113.4/32"]
+
+# Optional --------------------------------------------------------------------
+
+aws_region = "us-east-1"
+dd_site    = "datadoghq.com"
+
+dd_env     = "fargate-lab"
+dd_service = "settlements-api"
+dd_version = "1.0.0"
+
+desired_count = 2
+
+# Account tag policy. ts_team accepts: ese | shared
+ts_creator = "matthew.ruyffelaert@datadoghq.com"
+ts_team    = "ese"
+
+# RFC3339 UTC, or "" for no self-destruct. With a value set, a one-time
+# EventBridge schedule scales the service to zero at that moment.
+expires_at = ""
+
+# Exclude identifiers from Dynamic Instrumentation's default redaction, e.g.
+# "bearerToken,decodedJwt". See docs/dynamic-instrumentation.md.
+dd_di_redaction_excluded_identifiers = ""

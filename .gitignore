@@ -1,0 +1,17 @@
+# terraform
+# generated per lab instance by lab.sh
+terraform/backend.tf
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.tfplan
+crash.log
+
+# dotnet
+bin/
+obj/
+
+# misc
+.DS_Store
